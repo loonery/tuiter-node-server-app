@@ -13,7 +13,7 @@ const createTuit = (req, res) => {
     newTuit._id = new Date().getTime()+'';
     newTuit.topic = "tuiter"
     newTuit.userName = "Ryan Looney"
-    newTuit.tuitTime = "now"
+    newTuit.time = "now"
     newTuit.userImage = "../images/profile_images/tuiter_profile_picture.jpg";
     newTuit.liked = false;
     newTuit.replies = 0;
