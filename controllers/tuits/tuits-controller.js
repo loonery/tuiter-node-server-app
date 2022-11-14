@@ -8,7 +8,7 @@ export default (app) => {
     app.delete("/api/tuits/:tid", deleteTuit);
 }
 
-const createTuit = (req, res) => {
+const createTuit = async (req, res) => {
     const newTuit = req.body;
     newTuit.topic = "tuiter"
     newTuit.userName = "Ryan Looney"
