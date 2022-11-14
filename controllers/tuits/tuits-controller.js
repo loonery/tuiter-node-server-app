@@ -1,5 +1,5 @@
-import posts from "./tuits.js";
-let tuits = posts;
+import * as tuitsDAO from '../tuits/tuits-dao.js'
+import TuitsSchema from "./tuits-schema.js";
 
 export default (app) => {
     app.post("/api/tuits", createTuit);
@@ -10,7 +10,6 @@ export default (app) => {
 
 const createTuit = (req, res) => {
     const newTuit = req.body;
-    newTuit._id = new Date().getTime()+'';
     newTuit.topic = "tuiter"
     newTuit.userName = "Ryan Looney"
     newTuit.time = "now"
@@ -21,33 +20,30 @@ const createTuit = (req, res) => {
     newTuit.likes = 0;
     newTuit.dislikes = 0;
     newTuit.userHandle = "@rloon";
-    tuits.push(newTuit);
-    res.json(newTuit);
+    const insertedTuit = await tuitsDAO.createTuit(newTuit);
+    res.json(insertedTuit);
 }
 
-const findTuits = (req, res) => {
+const findTuits = async (req, res) => {
     // send the tuits back to the client
+    const tuits = await tuitsDAO.findTuits();
     res.json(tuits);
 }
 
-const updateTuit = (req, res) => {
+const updateTuit = async (req, res) => {
     const tuitToUpdate = req.params['tid'];
 
     // the updates to the tuit are passed in the body
     const updates = req.body;
 
-    // get the tuit requested for updating
-    const tuitIndex = tuits.findIndex((t) => t._id === tuitToUpdate)
-
-    // need to investigate this syntax
-    // merging/updating old tuit with updates
-    tuits[tuitIndex] = {...tuits[tuitIndex], ...updates}
-    res.sendStatus(200);
+    // use the data access object to update the tuit in the database
+    const status = await tuitsDAO.updateTuit(tuitToUpdate, updates);
+    res.json(status);
 }
 
-const deleteTuit = (req, res) => {
+const deleteTuit = async (req, res) => {
     // 'filtering out' the tuit to be deleted
     const tuitToDelete = req.params['tid'];
-    tuits = tuits.filter((tuit) => tuit._id !== tuitToDelete);
-    res.sendStatus(200);
+    const status = await tuitsDAO.deleteTuit(tuitToDelete)
+    res.json(status);
 }
