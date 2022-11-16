@@ -11,6 +11,7 @@ import TuitsController from "./controllers/tuits/tuits-controller.js";
 // set up 'app' as an instance of a server using express
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://localhost:27017/tuiter'
 mongoose.connect(CONNECTION_STRING);   // connect to my tuiter database
+
 const app = express();
 app.use(express.json());
 app.use(cors());
