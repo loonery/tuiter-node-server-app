@@ -1,5 +1,4 @@
 import * as tuitsDAO from '../tuits/tuits-dao.js'
-import TuitsSchema from "./tuits-schema.js";
 
 export default (app) => {
     app.post("/api/tuits", createTuit);
