@@ -8,6 +8,7 @@ const schema = mongoose.Schema({
     liked: Boolean,
     likes: Number,
     dislikes: Number,
+    disliked: Boolean,
     replies: Number,
     retuits: Number,
     userHandle: String

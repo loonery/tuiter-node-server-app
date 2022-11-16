@@ -14,6 +14,7 @@ const createTuit = async (req, res) => {
     newTuit.time = "now"
     newTuit.userImage = "../images/profile_images/tuiter_profile_picture.jpg";
     newTuit.liked = false;
+    newTuit.disliked = false;
     newTuit.replies = 0;
     newTuit.retuits = 0;
     newTuit.likes = 0;
